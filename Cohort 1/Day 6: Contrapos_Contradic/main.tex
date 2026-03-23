@@ -1,0 +1,644 @@
+\documentclass[fleqn]{article}
+%\textwidth=6in
+%\textheight=9in
+%\pagestyle{empty}
+\usepackage{amsmath,amssymb,amsthm,ragged2e,siunitx,graphicx,multicol,wrapfig,mathtools,parskip}
+\usepackage[margin=0.7in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[dvipsnames]{xcolor}
+\usepackage[export]{adjustbox}
+\newtheorem{thm}{{\sc Theorem}}[section]
+\newtheorem{prop}[thm]{{\sc Proposition}}
+\newtheorem{cor}[thm]{{\sc Corollary}}
+\newtheorem{lem}[thm]{{\sc Lemma}}
+\newtheorem{df}[thm]{{\sc Definition}}
+
+\DeclarePairedDelimiter\ceil{\lceil}{\rceil}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+
+\DeclareMathOperator{\sech}{sech}
+\DeclareMathOperator{\csch}{csch}
+
+% automatically makes new paragraphs have no indent
+\setlength{\parindent}{0pt}
+
+\newcommand{\n}{\noindent}
+\newcommand{\ds}{\displaystyle}
+\newcommand{\rar}{\rightarrow}
+
+% new command for underscore
+\newcommand{\underscore}{\underline{\hspace{1cm}}}
+
+% this is a command for the space between asterisk or plus and the problem statement
+\newcommand{\gap}{\hspace{.25cm}}
+
+\newcommand*\colvec[1]{\begin{bmatrix*}[r]#1\end{bmatrix*}} 
+
+% Uncomment this to write vectors bolded 
+\renewcommand{\vec}[1]{\boldsymbol{#1}}
+
+% Uncomment this to write vectors bolded AND with arrow on top
+\newcommand{\avec}[1]{\overrightarrow{\boldsymbol{#1}}}
+% this notation has an arrow on top of vector which is redundant if it is bolded
+
+% Uncomment this to write vectors unbolded with long arrow on top
+% \renewcommand{\vec}[1]{\overrightarrow{#1}}
+
+% this is a command for a coefficient matrix with right-aligned entries (good for aligning negative signs)
+\newcommand{\mat}[1]{\begin{bmatrix*}[r]#1\end{bmatrix*}} 
+
+% this is a command for a coefficient matrix with center-aligned entries (good for aligning negative signs)
+\newcommand{\cmat}[1]{\begin{bmatrix*}[c]#1\end{bmatrix*}} 
+
+% this is a command for a DETERMNINANT matrix with right-aligned entries (good for aligning negative signs) (ABSOLUTE VALUE BARS)
+\newcommand{\vmat}[1]{\begin{vmatrix*}[r]#1\end{vmatrix*}} 
+
+% this is a command for black squares (useful for pivots in matrices) when already in math mode (between $ signs)
+\newcommand{\bsq}{\blacksquare}
+
+
+
+
+
+
+%%  environment for AUGMENTED  matrices
+\newenvironment{amatrix}[1]{%
+  \left[\begin{array}{@{}*{#1}{r}|r@{}}
+}{%
+  \end{array}\right]
+}
+
+
+%%% new command for Augmented BAR alone (helpful for putting augmented bar somewhere in middle of matrix)
+\newcommand\aug{\fboxsep=-\fboxrule\!\!\!\fbox{\strut}\!\!\!}
+
+% define new color (i.e. pink)
+\definecolor{mypink1}{rgb}{0.858, 0.188, 0.478}
+
+% define new color (i.e. medium green)
+\definecolor{MediumGreen}{rgb}{0.1, 0.8, 0.65}
+
+% define new color (i.e. dark purple)
+\definecolor{DarkPurple}{rgb}{0.6, 0, 0.6}
+
+% this is a command for the size of headers
+\newcommand{\header}[1]{\noindent{\Large \textcolor{mypink1}{\textbf{#1}}}}
+
+% this is a command for the size of subheaders
+\newcommand{\subheader}[1]{\noindent{\large \textcolor{red}{\textbf{#1}}}}
+
+% this is a command for answers in RED on same line with a space between problem and answer
+\newcommand{\sred}[1]{\hspace{1cm} \textcolor{red}{#1}}
+
+% this is a command for answers in RED on same line with NO space between problem and answer
+\newcommand{\red}[1]{\textcolor{red}{#1}}
+
+% this is a command for answers in PURPLE on same line with NO space between problem and answer
+\newcommand{\DarkPurple}[1]{\textcolor{DarkPurple}{#1}}
+
+% this is a command for answers in GREEN on same line with NO space between problem and answer
+\newcommand{\MediumGreen}[1]{\textcolor{MediumGreen}{#1}}
+
+% this is a command for answers in BLUE on same line with a space between problem and answer
+\newcommand{\sblue}[1]{\hspace{1cm} \textcolor{blue}{#1}}
+
+% this is a command for answers in BLUE on same line with NO space between problem and answer
+\newcommand{\blue}[1]{\textcolor{blue}{#1}}
+
+
+% this is a command for defining EXAMPLES
+\theoremstyle{definition}
+\newtheorem{exmp}{Example}[section]
+
+
+
+
+\begin{document}
+
+\centerline{\Large \bf Math Seminar Template Notes}
+\centerline{\large \bf Day 6 (Proof by Contraposition and Proof by Contradiction)}
+\vspace{\baselineskip}
+
+%\noindent \underline{\hspace{18cm}}
+
+\header{Day 6 (Proof by Contraposition and Proof by Contradiction) } \\
+
+
+\noindent\fbox{%
+\parbox{\textwidth}{
+\subheader{Overview} \\ 
+%\vspace{0.25cm}
+\textbf{\underline{Goals}} 
+\begin{enumerate}
+\item Do examples using \textbf{proofs by contraposition}
+\item Introduce and apply a \textbf{proof by contradiction}
+\end{enumerate}
+\vspace{.25cm}
+}}
+
+\vspace{0.2cm}
+
+\subheader{Review of Proof by Contraposition}
+
+%%%% something in a box
+\noindent\fbox{%
+\parbox{\textwidth}{\vspace{.25cm}
+\textbf{Def:} If we have a statement of the form ``if $p$, then $q$" (symbolically written $p \rightarrow q$), then the \textbf{contrapositive} is
+
+\vspace{.25cm}
+\hspace{5cm} ``if not $q$, then not $p$" (symbolically written $\lnot q \rightarrow \lnot p$). 
+
+\vspace{.5cm}
+These two statements are \textbf{logically equivalent}.
+
+
+\vspace{.25cm}   
+}}
+%%% end box
+
+\vspace{.25cm}
+
+\textbf{Ex 1:} Write the contrapositives of the following statements: 
+
+\vspace{.25cm}
+(a) If it's raining, then the grass is wet.
+
+
+\vspace{1.5cm}
+
+
+% (b) If $n^2$ is even, then $n$ is even. 
+
+% \vspace{1.5cm}
+(b) On Wednesdays, we wear pink. 
+
+\vspace{1.5cm}
+
+
+% \vspace{.25cm}
+%%%% something in a box
+\noindent\fbox{%
+\parbox{\textwidth}{\vspace{.25cm}
+If we are trying to prove the statement ``if $p$, then $q$" using a \textbf{proof by contraposition}, we instead try to show that the contrapositive, ``if not $q$, then not $p$" is true by doing the following:
+
+    \vspace{.25cm}
+    \begin{itemize}
+    \item We assume $q$ does not happen (i.e. $q$ is false)
+
+    \vspace{.1cm}
+    \item We try to show that this means as a result $p$ will not happen (i.e. $p$ is false)
+    \end{itemize}
+\vspace{.25cm}   
+}}
+%%% end box
+
+\vspace{.25cm}
+
+\textbf{Ex 2 (last time):} Let's revisit the proposition we saw previously:
+
+\vspace{.25cm}
+    \hspace{1cm} \textbf{Proposition:} If $n^2$ is even, then $n$ is even.
+
+\vspace{.25cm}
+(a) Write the contrapositive of this statement. 
+
+\vspace{1.5cm}
+(b) Why is it hard to do a direct proof here?
+
+
+%%%
+\newpage
+
+
+(c) Use a proof by contraposition to prove the statement. 
+
+%%% Scratch work for proof
+\hspace{7cm} \MediumGreen{\underline{Scratch Work}}
+\begin{multicols}{2} 
+\hspace{4cm} \MediumGreen{\underline{Given/Know}} \columnbreak
+
+\MediumGreen{\underline{Want to show}} 
+\end{multicols}
+
+\vspace{6cm} 
+
+\textbf{Pf:}
+
+
+
+%%%
+\newpage
+
+\textbf{Ex 3:} Consider the following proposition: \hspace{.25cm} For an integer $n$, if $3n+5$ is even, then $n$ is odd. 
+%Show the sum of two odd integers is even.
+
+\vspace{.5cm}
+(a) First try proving this using a direct proof. What difficulty do you run into? 
+
+%%% Scratch work for proof
+\hspace{7cm} \MediumGreen{\underline{Scratch Work}}
+\begin{multicols}{2} 
+\hspace{4cm} \MediumGreen{\underline{Given/Know}} \columnbreak
+
+\MediumGreen{\underline{Want to show}} 
+\end{multicols}
+
+\vspace{4cm}
+(b) Now try proving it using a proof by contraposition. 
+
+\vspace{1cm}
+%%% Scratch work for proof
+\hspace{7cm} \MediumGreen{\underline{Scratch Work}}
+\begin{multicols}{2} 
+\hspace{4cm} \MediumGreen{\underline{Given/Know}} \columnbreak
+
+\MediumGreen{\underline{Want to show}} 
+\end{multicols}
+
+\vspace{5cm}
+
+
+%%%
+\newpage
+
+
+\subheader{Motivation for Proof by Contradiction}
+
+%%%% something in a box
+\noindent\fbox{%
+\parbox{\textwidth}{\vspace{.25cm}
+\textbf{Def:} A \textbf{rational} number is a real number that can be written in the form $\ds{\frac{a}{b}}$ where $a, b$ are integers and $b$ \underline{\hspace{1cm}}
+
+\vspace{.5cm}
+\hspace{1cm} \textbf{Examples:}
+
+\vspace{1cm}
+\textbf{Def:} An \textbf{irrational} number is a real number that is NOT rational. 
+
+\vspace{.5cm}
+\hspace{1cm} \textbf{Examples:}
+
+\vspace{.5cm}   
+}}
+%%% end box
+
+\vspace{.25cm}
+\textbf{Ex 4:} Consider the proposition, ``the sum of a rational number and an irrational number is irrational." 
+
+\vspace{.25cm}
+First, let's restate this formally using variables. 
+
+\vspace{.25cm}
+    \hspace{1cm} ``If $x$ is \underline{\hspace{3cm}} and $y$ is \underline{\hspace{3cm}}, then \underline{\hspace{1.5cm}} is \underline{\hspace{3cm}}"
+
+\vspace{.5cm}
+(a) What makes doing a direct proof difficult? 
+
+\vspace{2cm}
+(b) What is the contrapositive of this statement? What makes doing a proof by contraposition difficulty?
+
+\vspace{4cm}
+\textbf{Ex 5:} Consider the following scenario. Suppose that everyone in our classroom is here and there's also a newborn baby in the room (idk why!). I notice that the camera at the back of the classroom has dismantled. 
+
+\vspace{.25cm}
+I decide to do a thought experiment. I assume that the baby did it. 
+
+\vspace{.25cm}
+(a) What makes my assumption kind of ridiculous? 
+
+\vspace{1.5cm}
+(b) Because my assumption is \underline{\hspace{3cm}}, what does this tell us? 
+
+\vspace{1.5cm}
+
+
+%%%
+\newpage 
+
+%%%% something in a box
+\noindent\fbox{%
+\parbox{\textwidth}{\vspace{.25cm}
+In a \textbf{proof by contradiction}
+
+    \vspace{.25cm}
+	\hspace{1cm} (a) Assume that what we want to prove, is \red{false}
+
+	\vspace{.25cm}
+	\hspace{1cm} (b) Show this leads to a \red{contradiction} (e.g. ``integer $= \displaystyle{\frac{1}{2}}$," \hspace{.5cm} ``rational $= \underline{\hspace{3cm}},$ etc.
+
+	\vspace{.25cm}
+	\hspace{1cm} (c) This means our assumption is \underline{\hspace{3cm}} 
+
+	\vspace{.25cm}
+	\hspace{1.5cm} This implies that we wanted to prove is \underline{\hspace{2.5cm}}
+\vspace{.25cm}   
+}}
+%%% end box
+
+\vspace{.25cm}
+
+\textbf{Ex 6:} Let's return to our earlier proposition: ``the sum of a rational number and an irrational number is irrational." 
+
+\vspace{.25cm}
+    \hspace{1cm} We stated this formally as ``if $x$ is rational and $y$ is irrational, then $x+y$ is irrational" 
+
+\vspace{.5cm}
+Let's try proving this using a \textbf{proof by contradiction}.
+
+\vspace{1cm}
+We will assume that \underline{\hspace{7cm}} and include this as one of our givens. 
+
+%%% Scratch work for proof
+\hspace{7cm} \MediumGreen{\underline{Scratch Work}}
+\begin{multicols}{2} 
+\hspace{4cm} \MediumGreen{\underline{Given/Know}} \columnbreak
+
+\MediumGreen{\underline{Want to show}} 
+\end{multicols}
+
+\vspace{5cm} 
+
+\textbf{Pf:}
+
+
+
+
+
+
+%%%
+\newpage
+
+\subheader{Practice Problems}
+
+
+\vspace{.25cm}
+
+
+\begin{enumerate}
+
+\item Consider the following proposition: 
+
+\vspace{.25cm}
+    \hspace{1cm} \textbf{Proposition:} If $n^2$ is odd, then $n$ is odd.
+
+\vspace{.25cm}
+Prove this using a proof by contradiction. Is it different from a proof by contraposition?
+
+
+
+%%%
+\newpage
+
+
+\item Prove that product of two rational numbers is rational. 
+
+
+%%%
+\newpage
+
+
+\item Prove that the product of a nonzero rational number and an irrational number is irrational. 
+
+
+
+
+
+
+\end{enumerate}
+
+
+
+
+\end{document}
+
+
+
+
+
+
+
+
+\subheader{What Can We Assume is True and What We Cannot Assume is True?}
+
+\vspace{.25cm}
+%%%% something in a box
+\noindent\fbox{%
+\parbox{\textwidth}{\vspace{.25cm}
+\underline{Things we can assume are true} 
+
+\vspace{.25cm}
+
+	\begin{enumerate}
+	\item Axioms of real numbers and integers. 
+
+		\begin{itemize}
+		\item If $x, y$ are real numbers then $x \pm y$, $xy$, and $\displaystyle{\frac{x}{y}}$ are all real (except if $y=0$ in the division) 
+
+		\vspace{.25cm}
+
+		\item If $x, y$ are integers, then $x \pm y$ and $xy$ are integers. 
+
+		\vspace{.25cm}
+
+		\item \textbf{Distributive Law:} If $x, y, z$ are reals, then $x(y+z) = xy+xz$  
+
+		\vspace{.25cm}
+
+		\item \textbf{Commutative Law:} If $x, y$ are reals, then $x+y=y+x$ and $xy=yx$ 
+
+		\vspace{.25cm}
+
+		\item \textbf{Associative Law:} If $x, y, z$ are reals, then $x+(y+z) = (x+y)+z$. 
+
+		\vspace{.25cm}
+
+		\item \textbf{Transitive Law:} If $x, y, z$ are reals with $x<y$ and $y<z$, then $x<z$. (similarly for other inequalities)
+		\end{itemize}
+
+	\vspace{.25cm}
+	\item Basic Arithmetic Rules 
+
+		\begin{itemize}
+		\item Rules for adding/subtracting/multiplying/dividing fractions (e.g. $\displaystyle{ \frac{a}{b} \cdot \frac{c}{d} = \frac{ac}{bd} }$ ) 
+
+		\vspace{.25cm}
+
+		\item Multiplication by $-1$: e.g. if $a$ is rational, then $-a$ is rational (or if $a$ is an integer, then $-a$ is an integer, etc.) 
+
+		\vspace{.25cm}
+
+		\item Multiplication by $0$: If $a$ is real, then $a \cdot 0 = 0$ 
+
+		\vspace{.25cm}
+
+		\item Let $x, y$ be real. If $xy = 0$, then $x=0$ or $y=0$
+		\end{itemize}
+	\end{enumerate}
+\vspace{.25cm}   
+}}
+%%% end box
+
+
+\vspace{.5cm}
+
+%%%% something in a box
+\noindent\fbox{%
+\parbox{\textwidth}{\vspace{.25cm}
+\red{\underline{Examples of things we cannot assume are true}} 
+
+\vspace{.25cm}
+
+	\begin{enumerate}
+	\item ``Odd + Odd = Even" \hspace{.5cm} (or other versions of this like ``Odd + Even = Odd") 	
+
+	\vspace{.25cm}
+
+	\item Rational + rational = rational 
+
+	\vspace{.25cm}
+
+	\item Generally any statement more complicated than the ones in the axioms of real numbers and integers 
+	\end{enumerate}
+\vspace{.25cm}   
+}}
+%%% end box
+
+
+
+
+
+
+
+
+
+
+%%%% something in a box
+\noindent\fbox{%
+\parbox{\textwidth}{\vspace{.25cm}
+\textbf{Strategies to Show Inductive Step}
+
+\vspace{.25cm}
+	\begin{enumerate}
+	\item Start with $P(k)$ and do stuff to \underline{\hspace{4cm}} so it becomes $P(k+1)$
+
+	\vspace{.25cm}
+	\item Start with one side/part of $P(k+1)$ and use the assumption that \underline{\hspace{4cm}} to get the rest of $P(k+1)$
+	\end{enumerate}
+\vspace{.25cm}   
+}}
+%%% end box
+
+
+
+
+\begin{multicols}{5} 
+Type 
+\columnbreak 
+
+Symbol 
+\columnbreak
+
+Definition 
+\columnbreak
+
+\hspace{1cm}
+ \columnbreak
+ 
+\hspace{1cm}
+\end{multicols}
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+%image aligned
+%%
+\includegraphics[scale=0.7, right]{BlankAxes}
+\vspace{-10pt}
+
+
+%image centered
+%%
+\begin{center}
+\includegraphics[scale=1.4]{SinCosTanDrawGraphs}
+\end{center} 
+\vspace{-20pt}
+
+
+
+%%% incorrect/correct show something with 2 approaches
+\vspace{.25cm} 
+\begin{multicols}{2} 
+\red{\underline{Incorrect}} \columnbreak
+
+\MediumGreen{\underline{Correct}} 
+\end{multicols}
+
+
+%%% Scratch work for proof
+\hspace{7cm} \MediumGreen{\underline{Scratch Work}}
+\begin{multicols}{2} 
+\hspace{4cm} \MediumGreen{\underline{Given/Know}} \columnbreak
+
+\MediumGreen{\underline{Want to show}} 
+\end{multicols}
+
+\vspace{2.5cm} 
+
+
+
+%%%% something in a box
+\noindent\fbox{%
+\parbox{\textwidth}{\vspace{.25cm}
+\textbf{Def:} \\ (1) The \DarkPurple{intersection} of sets $A$ and $B$ is the set of all elements in \textbf{both} $A$ \textbf{and} $B$, denoted $\underline{\hspace{2cm}}$. 
+\vspace{.25cm}   
+}}
+%%% end box
+
+
+%%% big row reduction arrow
+\xrightarrow{\hspace*{2cm}}  
+
+
+
+%%% table with extra vertical spacing
+\begin{tabular}{ c|c|c } 
+$f'(x)$ &  $f(x)$  &  $F(x)$  \\ \hline
+\rule{0pt}{3ex}           &  $x^n$  &             \\
+ \rule{0pt}{5ex}          &  $\displaystyle{x^{-1}=\frac{1}{x}}$   &             \\
+\rule{0pt}{5ex}           &  $e^x$  &             \\
+\rule{0pt}{5ex}           &  $e^{kx}$  &             \\
+\rule{0pt}{5ex}           &  $g(x) \pm h(x)$  &             \\
+\rule{0pt}{5ex}           &  $cg(x)$  &             \\
+\rule{0pt}{5ex}           &  $g(x)h(x)$  &             \\
+\rule{0pt}{5ex}           &  $\displaystyle{\frac{g(x)}{h(x)}}$  &             \\
+\end{tabular}
+
+
+
+%%% coefficient matrix template
+$A = \mat{ 1 & 0 & 1 & 2 & 2 \\ 0 & 0 & 1 & 0 & 1 \\ 2 & 0 & 1 & 4 & 3 }$
+
+
+%%% augmented matrix template (the number in brackets indicates which column the augmented bar will be placed AFTER)
+$\begin{amatrix}{5}
+1 & -1 & 0 & -5 & 0 & -9  \\ 
+0 & 0  & 1 &  4 & 0 & 4 \\ 
+0 & 0  & 0 &  0 & 1 & 3  
+ \end{amatrix}$
+ 
+ 
+ 
+ %%%% template for multiple alignment points in system of equations
+ $\begin{alignedat}{3}
+		x_1 &+ x_2 &&- x_3 &&= -6 \\
+		3x_1 &+ x_2 &&+x_3  &&= 8 \\
+		4x_1 &+ 2x_2 &&      &&= 2 \\
+		\end{alignedat}$

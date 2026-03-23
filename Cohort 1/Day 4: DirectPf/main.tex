@@ -1,0 +1,610 @@
+\documentclass[fleqn]{article}
+%\textwidth=6in
+%\textheight=9in
+%\pagestyle{empty}
+\usepackage{amsmath,amssymb,amsthm,ragged2e,siunitx,graphicx,multicol,wrapfig,mathtools,parskip}
+\usepackage[margin=0.7in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[dvipsnames]{xcolor}
+\usepackage[export]{adjustbox}
+\newtheorem{thm}{{\sc Theorem}}[section]
+\newtheorem{prop}[thm]{{\sc Proposition}}
+\newtheorem{cor}[thm]{{\sc Corollary}}
+\newtheorem{lem}[thm]{{\sc Lemma}}
+\newtheorem{df}[thm]{{\sc Definition}}
+
+\DeclarePairedDelimiter\ceil{\lceil}{\rceil}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+
+\DeclareMathOperator{\sech}{sech}
+\DeclareMathOperator{\csch}{csch}
+
+% automatically makes new paragraphs have no indent
+\setlength{\parindent}{0pt}
+
+% new command for underscore
+\newcommand{\underscore}{\underline{\hspace{1cm}}}
+
+% this is a command for the space between asterisk or plus and the problem statement
+\newcommand{\gap}{\hspace{.25cm}}
+
+\newcommand*\colvec[1]{\begin{bmatrix*}[r]#1\end{bmatrix*}} 
+
+% Uncomment this to write vectors bolded 
+\renewcommand{\vec}[1]{\boldsymbol{#1}}
+
+% Uncomment this to write vectors bolded AND with arrow on top
+\newcommand{\avec}[1]{\overrightarrow{\boldsymbol{#1}}}
+% this notation has an arrow on top of vector which is redundant if it is bolded
+
+% Uncomment this to write vectors unbolded with long arrow on top
+% \renewcommand{\vec}[1]{\overrightarrow{#1}}
+
+% this is a command for a coefficient matrix with right-aligned entries (good for aligning negative signs)
+\newcommand{\mat}[1]{\begin{bmatrix*}[r]#1\end{bmatrix*}} 
+
+% this is a command for a coefficient matrix with center-aligned entries (good for aligning negative signs)
+\newcommand{\cmat}[1]{\begin{bmatrix*}[c]#1\end{bmatrix*}} 
+
+% this is a command for a DETERMNINANT matrix with right-aligned entries (good for aligning negative signs) (ABSOLUTE VALUE BARS)
+\newcommand{\vmat}[1]{\begin{vmatrix*}[r]#1\end{vmatrix*}} 
+
+% this is a command for black squares (useful for pivots in matrices) when already in math mode (between $ signs)
+\newcommand{\bsq}{\blacksquare}
+
+
+
+
+
+
+%%  environment for AUGMENTED  matrices
+\newenvironment{amatrix}[1]{%
+  \left[\begin{array}{@{}*{#1}{r}|r@{}}
+}{%
+  \end{array}\right]
+}
+
+
+%%% new command for Augmented BAR alone (helpful for putting augmented bar somewhere in middle of matrix)
+\newcommand\aug{\fboxsep=-\fboxrule\!\!\!\fbox{\strut}\!\!\!}
+
+% define new color (i.e. pink)
+\definecolor{mypink1}{rgb}{0.858, 0.188, 0.478}
+
+% define new color (i.e. medium green)
+\definecolor{MediumGreen}{rgb}{0.1, 0.8, 0.65}
+
+% define new color (i.e. dark purple)
+\definecolor{DarkPurple}{rgb}{0.6, 0, 0.6}
+
+% this is a command for the size of headers
+\newcommand{\header}[1]{\noindent{\Large \textcolor{mypink1}{\textbf{#1}}}}
+
+% this is a command for the size of subheaders
+\newcommand{\subheader}[1]{\noindent{\large \textcolor{red}{\textbf{#1}}}}
+
+% this is a command for answers in RED on same line with a space between problem and answer
+\newcommand{\sred}[1]{\hspace{1cm} \textcolor{red}{#1}}
+
+% this is a command for answers in RED on same line with NO space between problem and answer
+\newcommand{\red}[1]{\textcolor{red}{#1}}
+
+% this is a command for answers in PURPLE on same line with NO space between problem and answer
+\newcommand{\DarkPurple}[1]{\textcolor{DarkPurple}{#1}}
+
+% this is a command for answers in GREEN on same line with NO space between problem and answer
+\newcommand{\MediumGreen}[1]{\textcolor{MediumGreen}{#1}}
+
+% this is a command for answers in BLUE on same line with a space between problem and answer
+\newcommand{\sblue}[1]{\hspace{1cm} \textcolor{blue}{#1}}
+
+% this is a command for answers in BLUE on same line with NO space between problem and answer
+\newcommand{\blue}[1]{\textcolor{blue}{#1}}
+
+
+% this is a command for defining EXAMPLES
+\theoremstyle{definition}
+\newtheorem{exmp}{Example}[section]
+
+
+
+
+\begin{document}
+
+\centerline{\Large \bf Math Seminar Template Notes}
+\centerline{\large \bf Day 4 (Direct Proofs)}
+\vspace{\baselineskip}
+
+%\noindent \underline{\hspace{18cm}}
+
+\header{Day 4 (Direct Proofs) } \\
+
+
+\noindent\fbox{%
+\parbox{\textwidth}{
+\subheader{Overview} \\ 
+%\vspace{0.25cm}
+\textbf{\underline{Goals}} 
+\begin{enumerate}
+\item Final recap of induction 
+\item Translate English statements into formal mathematical definitions 
+\item Construct step-by-step \textbf{direct proofs}
+\end{enumerate}
+\vspace{.25cm}
+}}
+
+\vspace{0.2cm}
+
+\subheader{One Last Induction Recap}
+
+%%%% something in a box
+\noindent\fbox{%
+\parbox{\textwidth}{\vspace{.25cm}
+\hspace{5cm} \textbf{Principle of Mathematical Induction} 
+
+\vspace{.25cm}
+To prove a statement, $P(n)$, is true for all integers $n \geq 1$ ($n \in \mathbb{Z}^+$), using \textbf{induction}, there are 2 steps:
+
+	\vspace{.25cm}
+	\begin{enumerate}
+	\item \textbf{(Base Step):} Show \underline{\hspace{1.5cm}} is true
+
+	\vspace{.25cm}
+	\item \textbf{(Inductive Step):} Assume \underline{\hspace{1.5cm}} is true for an arbitrary $k \in \mathbb{Z}^+$, and show this implies that \underline{\hspace{1.75cm}} is true. 
+
+%	\vspace{.25cm}
+%	\hspace{1cm} i.e. show $\underline{\hspace{1.5cm}} \rightarrow \underline{\hspace{1.75cm}}$
+	\end{enumerate}
+\vspace{.25cm}   
+}}
+%%% end box
+
+\vspace{.25cm}
+
+\textbf{Ex 1:} Consider the following statement: 
+
+\vspace{.25cm}
+
+\hspace{5cm} \textbf{Proposition:} $4$ divides $2n^2-6n$ for any positive integer $n$. 
+
+\vspace{.25cm}
+Recall, one way to say $4$ divides $x$ with an equation is to say that $x=4j$ where $j$ is some integer. 
+
+\vspace{.5cm}
+(a) Discuss why is this type of statement suitable for induction. 
+
+\vspace{1.5cm}
+(b) Prove it. 
+
+
+
+%%%
+\newpage
+
+\subheader{Defining Odd and Even Integers} 
+
+\textbf{Think/Discuss:} How would we prove that the sum of an odd integer and an even integer is an odd integer? 
+
+\vspace{3cm}
+    \begin{itemize}
+        \item We're running into the challenge of having \underline{\hspace{5cm}}
+
+        \vspace{.25cm}
+        \item To overcome this, we must move from examples to formal \underline{\hspace{3cm}} and use \underline{\hspace{2.5cm}} proofs
+    \end{itemize}
+
+\vspace{.5cm}
+\textbf{Goal:} Let's try to create a \textbf{formal definition} of \textbf{even} and \textbf{odd} integers. 
+
+\vspace{.5cm}
+(a) What is the fundamental property of an even integer? 
+
+\vspace{2cm}
+(b) Let's use that to create a formal definition of an even integer:
+
+\vspace{.25cm}
+%%%% something in a box
+\noindent\fbox{%
+\parbox{\textwidth}{\vspace{.5cm}
+\textbf{Def:} An integer $n$ is \textbf{even} if \underline{\hspace{12cm}}
+\vspace{.5cm}   
+}}
+%%% end box
+
+\vspace{.25cm}
+Using that definition, why is $8$ even? How about $-102$? How about $0$?
+
+\vspace{1.5cm} 
+(c) In a similar way to what we did in (a) for evens, how can we write odd integers formally? 
+
+\vspace{2cm}
+
+% \vspace{.25cm}
+%%%% something in a box
+\noindent\fbox{%
+\parbox{\textwidth}{\vspace{.5cm}
+\textbf{Def:} An integer $n$ is \textbf{odd} if \underline{\hspace{12cm}}
+\vspace{.5cm}   
+}}
+%%% end box
+
+\vspace{.25cm}
+\textbf{Subtle Question:} Suppose we're doing a problem where $x$ is even and $y$ is odd. It turns out it would be incorrect to 
+
+\vspace{.25cm}
+say $x = \underline{\hspace{1.5cm}}$ and $y = \underline{\hspace{1.5cm}}$. What about this is incorrect?
+
+
+
+
+%%%
+\newpage
+
+\subheader{What is a Direct Proof?}
+
+In a \textbf{direct proof} of a mathematical statement, 
+    \begin{itemize}
+        \item we start with the \textbf{given} information
+        \item then we manipulate it using definitions/algebra/etc. 
+        \item until it becomes what we \textbf{want to show}
+    \end{itemize}
+
+\vspace{.5cm}
+\textbf{Ex 2:} Prove that the sum of an odd integer and an even integer is an odd integer.
+
+\vspace{.25cm}
+\hspace{1cm} \textbf{Restate Formally:} ``For all integers $x, y$, if $x$ is odd and $y$ is even, then \underline{\hspace{2cm}} is odd" 
+
+\vspace{1cm}
+
+\hspace{7cm} \MediumGreen{\underline{Scratch Work}}
+\begin{multicols}{2} 
+\hspace{4cm} \MediumGreen{\underline{Given/Know}} \columnbreak
+
+\MediumGreen{\underline{Want to show}} 
+\end{multicols}
+
+\vspace{5cm} 
+
+
+\textbf{Pf:} 
+
+
+
+
+
+
+%%%
+\newpage
+
+
+\textbf{Ex 3:} Consider the following proof of the statement on the previous page. 
+
+\vspace{.5cm}
+\textbf{Pf:} Let $x$ be odd and $y$ be even. 
+
+\vspace{.25cm}
+\hspace{.5cm} $x+y = 2k + 1 + 2j = 2(k+j)+1$, so we're done. $\bsq$
+
+\vspace{1cm}
+\textbf{Discuss:} Is this a ``complete" proof? If so, why? If not, why not?
+
+\vspace{.5cm}
+    \hspace{5cm} Key Components of a Complete Proof
+
+\vspace{4cm}
+
+
+
+
+\textbf{Ex 4:} Let $n$ be an integer $(n \in \mathbb{Z}).$ Prove if $n-2$ is even, then $3n^2+5$ is odd. 
+
+\vspace{.25cm}
+\hspace{7cm} \MediumGreen{\underline{Scratch Work}}
+\begin{multicols}{2} 
+\hspace{4cm} \MediumGreen{\underline{Given/Know}} \columnbreak
+
+\MediumGreen{\underline{Want to show}} 
+\end{multicols}
+
+\vspace{5cm} 
+
+
+\textbf{Pf:} 
+
+
+
+%%%
+\newpage
+
+
+\subheader{Modifying Direct Proofs}
+
+\textbf{Ex 5:} Prove for any integer $n$, the expression $n^2+n$ is even. 
+
+\vspace{.25cm}
+(a) \textbf{Think/Discuss:} What makes the structure of this statement different and harder to work with than our previous examples? 
+
+\vspace{2cm}
+(b) Now try to prove it. (It is doable!)
+
+
+
+%%%
+\newpage
+
+\subheader{What Can We Assume is True and What We Cannot Assume is True?}
+
+\vspace{.25cm}
+%%%% something in a box
+\noindent\fbox{%
+\parbox{\textwidth}{\vspace{.25cm}
+\underline{Things we can assume are true} 
+
+\vspace{.25cm}
+
+	\begin{enumerate}
+	\item Axioms of real numbers and integers. 
+
+		\begin{itemize}
+		\item If $x, y$ are real numbers then $x \pm y$, $xy$, and $\displaystyle{\frac{x}{y}}$ are all real (except if $y=0$ in the division) 
+
+		\vspace{.25cm}
+
+		\item If $x, y$ are integers, then $x \pm y$ and $xy$ are integers. 
+
+		\vspace{.25cm}
+
+		\item \textbf{Distributive Law:} If $x, y, z$ are reals, then $x(y+z) = xy+xz$  
+
+		\vspace{.25cm}
+
+		\item \textbf{Commutative Law:} If $x, y$ are reals, then $x+y=y+x$ and $xy=yx$ 
+
+		\vspace{.25cm}
+
+		\item \textbf{Associative Law:} If $x, y, z$ are reals, then $x+(y+z) = (x+y)+z$. 
+
+		\vspace{.25cm}
+
+		\item \textbf{Transitive Law:} If $x, y, z$ are reals with $x<y$ and $y<z$, then $x<z$. (similarly for other inequalities)
+		\end{itemize}
+
+	\vspace{.25cm}
+	\item Basic Arithmetic Rules 
+
+		\begin{itemize}
+		\item Rules for adding/subtracting/multiplying/dividing fractions (e.g. $\displaystyle{ \frac{a}{b} \cdot \frac{c}{d} = \frac{ac}{bd} }$ ) 
+
+		\vspace{.25cm}
+
+		\item Multiplication by $-1$: e.g. if $a$ is rational, then $-a$ is rational (or if $a$ is an integer, then $-a$ is an integer, etc.) 
+
+		\vspace{.25cm}
+
+		\item Multiplication by $0$: If $a$ is real, then $a \cdot 0 = 0$ 
+
+		\vspace{.25cm}
+
+		\item Let $x, y$ be real. If $xy = 0$, then $x=0$ or $y=0$
+		\end{itemize}
+	\end{enumerate}
+\vspace{.25cm}   
+}}
+%%% end box
+
+
+\vspace{.5cm}
+
+%%%% something in a box
+\noindent\fbox{%
+\parbox{\textwidth}{\vspace{.25cm}
+\red{\underline{Examples of things we cannot assume are true}} 
+
+\vspace{.25cm}
+
+	\begin{enumerate}
+	\item ``Odd + Odd = Even" \hspace{.5cm} (or other versions of this like ``Odd + Even = Odd") 	
+
+	\vspace{.25cm}
+
+	\item Rational + rational = rational 
+
+	\vspace{.25cm}
+
+	\item Generally any statement more complicated than the ones in the axioms of real numbers and integers 
+	\end{enumerate}
+\vspace{.25cm}   
+}}
+%%% end box
+
+
+
+
+%%%
+\newpage
+
+\subheader{Practice Problems}
+
+
+\vspace{.25cm}
+
+
+\begin{enumerate}
+
+\item Show the sum of two odd integers is even. 
+
+\vfill
+
+\item Prove the square of an odd integer is odd. 
+
+\vfill 
+
+
+%%%
+\newpage 
+
+\item Prove that for any integer, $n$, that $n^2+3n-5$ is odd. 
+
+
+%%%
+\newpage 
+
+\item Prove that for any integer $n$, that $n^3-n$ is divisible by $3$. 
+
+    \vspace{.25cm}
+    \textbf{Hint:} Since we're just given that $n$ is an integer (and nothing else), this is not much to go on! This is an 
+    
+    \vspace{.25cm}
+    indicator to try which proof method: \underline{\hspace{6cm}}
+
+    \vspace{.25cm}
+    If we were trying to show $n^3-n$ was divisible by $2$, we might try 2 cases: (1) $n$ is odd and (2) $n$ is even.
+
+    \vspace{.25cm}
+    For this problem, one of the cases will be $n=3k$ for some integer $k$. Can you find the other case(s) and then keep going? 
+
+
+
+
+\end{enumerate}
+
+
+
+
+\end{document}
+
+
+
+
+
+%%%% something in a box
+\noindent\fbox{%
+\parbox{\textwidth}{\vspace{.25cm}
+\textbf{Strategies to Show Inductive Step}
+
+\vspace{.25cm}
+	\begin{enumerate}
+	\item Start with $P(k)$ and do stuff to \underline{\hspace{4cm}} so it becomes $P(k+1)$
+
+	\vspace{.25cm}
+	\item Start with one side/part of $P(k+1)$ and use the assumption that \underline{\hspace{4cm}} to get the rest of $P(k+1)$
+	\end{enumerate}
+\vspace{.25cm}   
+}}
+%%% end box
+
+
+
+
+\begin{multicols}{5} 
+Type 
+\columnbreak 
+
+Symbol 
+\columnbreak
+
+Definition 
+\columnbreak
+
+\hspace{1cm}
+ \columnbreak
+ 
+\hspace{1cm}
+\end{multicols}
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+%image aligned
+%%
+\includegraphics[scale=0.7, right]{BlankAxes}
+\vspace{-10pt}
+
+
+%image centered
+%%
+\begin{center}
+\includegraphics[scale=1.4]{SinCosTanDrawGraphs}
+\end{center} 
+\vspace{-20pt}
+
+
+
+%%% incorrect/correct show something with 2 approaches
+\vspace{.25cm} 
+\begin{multicols}{2} 
+\red{\underline{Incorrect}} \columnbreak
+
+\MediumGreen{\underline{Correct}} 
+\end{multicols}
+
+
+%%% Scratch work for proof
+\hspace{7cm} \MediumGreen{\underline{Scratch Work}}
+\begin{multicols}{2} 
+\hspace{4cm} \MediumGreen{\underline{Given/Know}} \columnbreak
+
+\MediumGreen{\underline{Want to show}} 
+\end{multicols}
+
+\vspace{2.5cm} 
+
+
+
+%%%% something in a box
+\noindent\fbox{%
+\parbox{\textwidth}{\vspace{.25cm}
+\textbf{Def:} \\ (1) The \DarkPurple{intersection} of sets $A$ and $B$ is the set of all elements in \textbf{both} $A$ \textbf{and} $B$, denoted $\underline{\hspace{2cm}}$. 
+\vspace{.25cm}   
+}}
+%%% end box
+
+
+%%% big row reduction arrow
+\xrightarrow{\hspace*{2cm}}  
+
+
+
+%%% table with extra vertical spacing
+\begin{tabular}{ c|c|c } 
+$f'(x)$ &  $f(x)$  &  $F(x)$  \\ \hline
+\rule{0pt}{3ex}           &  $x^n$  &             \\
+ \rule{0pt}{5ex}          &  $\displaystyle{x^{-1}=\frac{1}{x}}$   &             \\
+\rule{0pt}{5ex}           &  $e^x$  &             \\
+\rule{0pt}{5ex}           &  $e^{kx}$  &             \\
+\rule{0pt}{5ex}           &  $g(x) \pm h(x)$  &             \\
+\rule{0pt}{5ex}           &  $cg(x)$  &             \\
+\rule{0pt}{5ex}           &  $g(x)h(x)$  &             \\
+\rule{0pt}{5ex}           &  $\displaystyle{\frac{g(x)}{h(x)}}$  &             \\
+\end{tabular}
+
+
+
+%%% coefficient matrix template
+$A = \mat{ 1 & 0 & 1 & 2 & 2 \\ 0 & 0 & 1 & 0 & 1 \\ 2 & 0 & 1 & 4 & 3 }$
+
+
+%%% augmented matrix template (the number in brackets indicates which column the augmented bar will be placed AFTER)
+$\begin{amatrix}{5}
+1 & -1 & 0 & -5 & 0 & -9  \\ 
+0 & 0  & 1 &  4 & 0 & 4 \\ 
+0 & 0  & 0 &  0 & 1 & 3  
+ \end{amatrix}$
+ 
+ 
+ 
+ %%%% template for multiple alignment points in system of equations
+ $\begin{alignedat}{3}
+		x_1 &+ x_2 &&- x_3 &&= -6 \\
+		3x_1 &+ x_2 &&+x_3  &&= 8 \\
+		4x_1 &+ 2x_2 &&      &&= 2 \\
+		\end{alignedat}$
